@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibra en Alta - Bienestar y Arte que Transforman</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --yellow: #F4E945;
+            --black: #0a0a0a;
+            --white: #ffffff;
+            --gray: #f5f5f5;
+            --accent: #00d9ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--black);
+            color: var(--white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--yellow) 0%, #ffd700 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            background: radial-gradient(circle, transparent 20%, var(--black) 80%);
+            animation: rotate 20s linear infinite;
+            opacity: 0.1;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 10;
+            padding: 40px;
+            max-width: 1200px;
+        }
+
+        .hero h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(3rem, 10vw, 7rem);
+            color: var(--black);
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-bottom: 30px;
+            animation: slideUp 1s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.8rem);
+            color: var(--black);
+            font-weight: 600;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 0.5s forwards;
+            max-width: 900px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 0.8s forwards;
+        }
+
+        .btn {
+            padding: 18px 40px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--black);
+            color: var(--yellow);
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--black);
+            border: 3px solid var(--black);
+        }
+
+        .btn-secondary:hover {
+            background: var(--black);
+            color: var(--yellow);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-20px); }
+        }
+
+        .scroll-indicator span {
+            display: block;
+            width: 30px;
+            height: 50px;
+            border: 3px solid var(--black);
+            border-radius: 25px;
+            position: relative;
+        }
+
+        .scroll-indicator span::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background: var(--black);
+            border-radius: 50%;
+            animation: scrollDot 2s infinite;
+        }
+
+        @keyframes scrollDot {
+            0%, 100% { top: 10px; opacity: 1; }
+            50% { top: 30px; opacity: 0.3; }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 60px;
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+
+        nav.scrolled {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 60px;
+        }
+
+        nav .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .nav-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            color: var(--yellow);
+            letter-spacing: 0.05em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--yellow);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Section Styles */
+        section {
+            min-height: 100vh;
+            padding: 120px 60px;
+            position: relative;
+        }
+
+        .section-yellow {
+            background: var(--yellow);
+            color: var(--black);
+        }
+
+        .section-black {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .section-gray {
+            background: var(--gray);
+            color: var(--black);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            margin-bottom: 40px;
+            letter-spacing: -0.02em;
+            line-height: 1;
+        }
+
+        .section-subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-weight: 600;
+            margin-bottom: 30px;
+            line-height: 1.4;
+        }
+
+        /* Focus Cards */
+        .focus-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .focus-card {
+            background: var(--black);
+            padding: 50px 40px;
+            border-radius: 20px;
+            border: 2px solid var(--black);
+            transition: all 0.3s;
+            cursor: pointer;
+            color: var(--white);
+        }
+
+        .focus-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .focus-card .icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .focus-card h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--yellow);
+        }
+
+        .focus-card p {
+            color: var(--white);
+            line-height: 1.8;
+        }
+
+        /* Stats Section */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-top: 80px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 60px 40px;
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+
+        .stat-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2);
+        }
+
+        .stat-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 4rem;
+            color: var(--black);
+            line-height: 1;
+            margin-bottom: 15px;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #666;
+        }
+
+        /* Program Cards */
+        .program-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .program-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .program-card:hover {
+            transform: translateY(-20px);
+            box-shadow: 0 30px 80px rgba(244, 233, 69, 0.3);
+        }
+
+        .program-header {
+            background: linear-gradient(135deg, var(--yellow), #ffd700);
+            padding: 50px 40px;
+            text-align: center;
+        }
+
+        .program-header h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            color: var(--black);
+            margin-bottom: 10px;
+        }
+
+        .program-body {
+            padding: 40px;
+        }
+
+        .program-body p {
+            line-height: 1.8;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        /* Testimonials */
+        .testimonial {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            border-left: 5px solid var(--yellow);
+            margin: 30px 0;
+        }
+
+        .testimonial p {
+            font-size: 1.3rem;
+            font-style: italic;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .testimonial .author {
+            color: var(--yellow);
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 120px 60px;
+            background: linear-gradient(135deg, var(--black) 0%, #1a1a1a 100%);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--black);
+            padding: 60px;
+            text-align: center;
+            border-top: 4px solid var(--yellow);
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--yellow), var(--accent));
+            z-index: 10000;
+            transition: width 0.1s;
+        }
+
+        /* Mobile Menu */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--yellow);
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        /* Content Box */
+        .content-box {
+            background: var(--white);
+            padding: 60px;
+            border-radius: 30px;
+            margin: 60px 0;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        .content-box h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            color: var(--black);
+            margin-bottom: 20px;
+        }
+
+        .content-box p {
+            color: #333;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            section {
+                padding: 80px 30px;
+            }
+
+            nav {
+                padding: 15px 30px;
+            }
+
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: rgba(10, 10, 10, 0.98);
+                flex-direction: column;
+                padding: 40px;
+                gap: 30px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .focus-grid,
+            .program-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--black);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--yellow);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ffd700;
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Navigation -->
+    <nav id="mainNav">
+        <div class="nav-container">
+            <div class="nav-logo">VIBRA EN ALTA</div>
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#inicio" onclick="closeMenu()">Inicio</a></li>
+                <li><a href="#quienes-somos" onclick="closeMenu()">Quiénes Somos</a></li>
+                <li><a href="#programas" onclick="closeMenu()">Programas</a></li>
+                <li><a href="#impacto" onclick="closeMenu()">Impacto</a></li>
+                <li><a href="#participa" onclick="closeMenu()">Participa</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <h1>Vibra en Alta: bienestar y arte que transforman la juventud</h1>
+            <p class="hero-subtitle">
+                Acompañamos a jóvenes para que cuiden su salud mental, expresen su autenticidad y desarrollen su creatividad.
+            </p>
+            <div class="hero-buttons">
+                <a href="#programas" class="btn btn-primary">Conocer los programas</a>
+                <a href="#participa" class="btn btn-secondary">Quiero apoyar la fundación</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span></span>
+        </div>
+    </section>
+
+    <!-- Qué es Vibra en Alta -->
+    <section class="section-black">
+        <div class="container">
+            <h2 class="section-title">¿Qué es Vibra en Alta?</h2>
+            <p style="font-size: 1.5rem; max-width: 900px; line-height: 1.8;">
+                Somos una fundación enfocada en el <strong style="color: var(--yellow);">bienestar, la salud mental y la expresión creativa</strong> de jóvenes.
+                Creemos en el poder del arte, la comunidad y la autenticidad para transformar vidas.
+            </p>
+        </div>
+    </section>
+
+    <!-- Nuestros Focos -->
+    <section class="section-yellow">
+        <div class="container">
+            <h2 class="section-title">Nuestros Focos</h2>
+
+            <div class="focus-grid">
+                <div class="focus-card">
+                    <div class="icon">🧠</div>
+                    <h3>Salud Mental</h3>
+                    <p>Herramientas emocionales, talleres y acompañamiento profesional para que cada joven pueda vibrar en alta.</p>
+                </div>
+
+                <div class="focus-card">
+                    <div class="icon">🎨</div>
+                    <h3>Arte y Creatividad</h3>
+                    <p>Laboratorios de creación sonora, espacios de expresión y procesos artísticos que fortalecen la confianza y la voz propia.</p>
+                </div>
+
+                <div class="focus-card">
+                    <div class="icon">🤝</div>
+                    <h3>Bienestar y Comunidad</h3>
+                    <p>Actividades que fortalecen vínculos, redes de apoyo y proyectos de vida sostenibles.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Historias que Vibran -->
+    <section class="section-black">
+        <div class="container">
+            <h2 class="section-title">Historias que Vibran</h2>
+
+            <div class="testimonial">
+                <p>"Después del laboratorio sonoro, siento más seguridad en mi voz."</p>
+                <p class="author">— Laura, 19 años</p>
+            </div>
+
+            <div class="testimonial">
+                <p>"Encontré un espacio donde puedo hablar sin miedo."</p>
+                <p class="author">— Juan, 18 años</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impacto en Números -->
+    <section class="section-gray" id="impacto">
+        <div class="container">
+            <h2 class="section-title">Impacto en Números</h2>
+
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number" data-target="92">0%</div>
+                    <div class="stat-label">De nuestros participantes reportan más autoconfianza</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Jóvenes acompañados en salud mental</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Aliados sumados al propósito</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quiénes Somos -->
+    <section class="section-black" id="quienes-somos">
+        <div class="container">
+            <h2 class="section-title">Quiénes Somos</h2>
+
+            <div class="content-box">
+                <h3>Misión</h3>
+                <p>
+                    Acompañar a jóvenes para que cuiden su salud mental, descubran su autenticidad y desarrollen proyectos creativos que transformen su entorno.
+                </p>
+            </div>
+
+            <div class="content-box">
+                <h3>Visión</h3>
+                <p>
+                    Ser una plataforma referente en bienestar, salud mental y arte para la juventud, con impacto medible y sostenible.
+                </p>
+            </div>
+
+            <div class="content-box">
+                <h3>Nuestra Historia</h3>
+                <p>
+                    Vibra en Alta nace del deseo de convertir la experiencia personal, creativa y emocional en una oportunidad para acompañar a otros jóvenes.
+                    Desde Medellín, construimos una red de programas, aliados y profesionales comprometidos con el bienestar y la expresión auténtica.
+                </p>
+            </div>
+
+            <div class="content-box">
+                <h3>Nuestro Fundador</h3>
+                <p>
+                    Vibra en Alta fue fundada por el artista J Balvin, quien aportó su visión inicial y su compromiso con el bienestar emocional de los jóvenes.
+                    Hoy, la fundación opera con un equipo técnico y una comunidad que hacen de Vibra en Alta una entidad viva, autónoma y sostenible.
+                </p>
+            </div>
+
+            <div class="content-box">
+                <h3>Equipo y Voceros</h3>
+                <p>
+                    Nuestro equipo está conformado por profesionales en psicología, artes, pedagogía y proyectos sociales.
+                    Nuestros voceros representan la voz institucional de Vibra en Alta ante medios, aliados y comunidad.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programas -->
+    <section class="section-yellow" id="programas">
+        <div class="container">
+            <h2 class="section-title">Programas</h2>
+            <p class="section-subtitle">
+                Nuestros programas combinan acompañamiento emocional, formación creativa y espacios de comunidad.
+                Aquí el propósito se convierte en acción.
+            </p>
+
+            <div class="program-grid">
+                <div class="program-card">
+                    <div class="program-header">
+                        <h3>Salud Mental</h3>
+                    </div>
+                    <div class="program-body">
+                        <p>
+                            Sesiones grupales, talleres y contenidos guiados por nuestro equipo de bienestar para fortalecer la salud emocional de jóvenes.
+                        </p>
+                        <a href="#participa" class="btn btn-primary">Quiero participar</a>
+                    </div>
+                </div>
+
+                <div class="program-card">
+                    <div class="program-header">
+                        <h3>Creación Sonora y Artes</h3>
+                    </div>
+                    <div class="program-body">
+                        <p>
+                            Espacios donde jóvenes experimentan con música, sonido y expresión artística para contar sus historias y construir confianza.
+                        </p>
+                        <a href="#participa" class="btn btn-primary">Quiero más información</a>
+                    </div>
+                </div>
+
+                <div class="program-card">
+                    <div class="program-header">
+                        <h3>Otros Programas</h3>
+                    </div>
+                    <div class="program-body">
+                        <p>
+                            Proyectos en desarrollo para fortalecer bienestar, creatividad y comunidad.
+                        </p>
+                        <a href="#participa" class="btn btn-primary">Mantenerme al tanto</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Participa -->
+    <section class="section-black" id="participa">
+        <div class="container">
+            <h2 class="section-title">Cómo Puedes Participar</h2>
+
+            <div class="program-grid">
+                <div class="program-card">
+                    <div class="program-header">
+                        <h3>Dona</h3>
+                    </div>
+                    <div class="program-body">
+                        <p>
+                            Tu aporte hace posible que más jóvenes cuenten con apoyo emocional, creativo y comunitario.
+                        </p>
+                        <a href="#" class="btn btn-primary">Quiero donar</a>
+                    </div>
+                </div>
+
+                <div class="program-card">
+                    <div class="program-header">
+                        <h3>Voluntariado</h3>
+                    </div>
+                    <div class="program-body">
+                        <p>
+                            Aporta tu talento en psicología, arte, educación o gestión social.
+                        </p>
+                        <a href="#" class="btn btn-primary">Quiero ser voluntario</a>
+                    </div>
+                </div>
+
+                <div class="program-card">
+                    <div class="program-header">
+                        <h3>Inscríbete</h3>
+                    </div>
+                    <div class="program-body">
+                        <p>
+                            Participa en nuestros espacios de bienestar y creatividad.
+                        </p>
+                        <a href="#" class="btn btn-primary">Quiero inscribirme</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Final -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="section-title" style="color: var(--yellow);">Únete a Vibra en Alta</h2>
+            <p style="font-size: 1.3rem; opacity: 0.9; max-width: 800px; margin: 0 auto 40px;">
+                Juntos construimos una comunidad donde el bienestar, la creatividad y la autenticidad transforman vidas.
+            </p>
+            <a href="#participa" class="btn btn-primary" style="background: var(--yellow); color: var(--black); font-size: 1.3rem; padding: 20px 50px;">
+                Comienza Ahora
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p style="margin-bottom: 15px; opacity: 1; font-size: 1rem;">Vibra en Alta Foundation</p>
+        <p>Bienestar, salud mental y arte que transforman la juventud</p>
+        <p style="margin-top: 30px; color: var(--yellow);">Medellín, Colombia</p>
+    </footer>
+
+    <script>
+        // Scroll Progress
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+
+            // Nav scroll effect
+            const nav = document.getElementById('mainNav');
+            if (winScroll > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+
+        function closeMenu() {
+            document.getElementById('navLinks').classList.remove('active');
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Stats counter animation
+        const animateCounter = (element) => {
+            const target = parseInt(element.getAttribute('data-target'));
+            const duration = 2000;
+            const step = (timestamp) => {
+                if (!element.startTime) element.startTime = timestamp;
+                const progress = Math.min((timestamp - element.startTime) / duration, 1);
+                element.textContent = Math.floor(progress * target) + '%';
+                if (progress < 1) {
+                    requestAnimationFrame(step);
+                }
+            };
+            requestAnimationFrame(step);
+        };
+
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (entry.target.classList.contains('stat-number') && entry.target.hasAttribute('data-target') && !entry.target.animated) {
+                        entry.target.animated = true;
+                        animateCounter(entry.target);
+                    }
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        // Observe elements
+        document.querySelectorAll('.focus-card, .program-card, .stat-item, .testimonial, .content-box').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+
+        document.querySelectorAll('.stat-number[data-target]').forEach(el => observer.observe(el));
+
+        // Console message
+        console.log('%c🎵 VIBRA EN ALTA 🎵', 'font-size: 40px; font-weight: bold; color: #F4E945; text-shadow: 2px 2px 4px #000;');
+        console.log('%cBienestar y arte que transforman la juventud', 'font-size: 14px; color: #666;');
+    </script>
+</body>
+</html>
